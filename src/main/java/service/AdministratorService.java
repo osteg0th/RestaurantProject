@@ -1,4 +1,4 @@
-package sevice;
+package service;
 
 import bI.Util;
 import dao.AdministratorDAO;
