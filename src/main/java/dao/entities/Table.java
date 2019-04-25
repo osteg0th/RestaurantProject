@@ -2,11 +2,12 @@ package dao.entities;
 
 import java.util.Objects;
 
-public class Menu {
+public class Table {
     private Integer id;
-    private Integer dish_id;
+    private Boolean status;
 
-    public Menu() {
+    public Table() {
+
     }
 
     public Integer getId() {
@@ -17,33 +18,33 @@ public class Menu {
         this.id = id;
     }
 
-    public Integer getDish_id() {
-        return dish_id;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setDish_id(Integer dish_id) {
-        this.dish_id = dish_id;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Menu menu = (Menu) o;
-        return Objects.equals(id, menu.id) &&
-                Objects.equals(dish_id, menu.dish_id);
+        Table table = (Table) o;
+        return status == table.status &&
+                Objects.equals(id, table.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dish_id);
+        return Objects.hash(id, status);
     }
 
     @Override
     public String toString() {
-        return "Menu{" +
+        return "Table{" +
                 "id=" + id +
-                ", dish_id=" + dish_id +
+                ", status=" + status +
                 '}';
     }
 }
