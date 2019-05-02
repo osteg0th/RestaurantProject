@@ -1,4 +1,4 @@
-//package dao.entities;
+//package entities;
 //
 //public class Order {
 //    private Integer id;

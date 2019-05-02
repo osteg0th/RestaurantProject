@@ -1,6 +1,6 @@
 //package dao;
 //
-//import dao.entities.Administrator;
+//import entities.Administrator;
 //
 //import java.util.List;
 //

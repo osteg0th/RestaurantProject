@@ -1,6 +1,6 @@
 package dao;
 
-import dao.entities.Dish;
+import entities.Dish;
 
 import java.util.List;
 
@@ -12,7 +12,8 @@ public interface DishDAO {
     Dish getById(Integer id);
     Dish getByName(String name);
     Dish getByType(String type);
-    Dish getByPrice(Float price);
+    Dish getByPrice(Double price);
+    Dish getByWeight(Double weight);
     //update
     void update(Dish dish);
     //delete

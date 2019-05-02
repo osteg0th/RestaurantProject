@@ -1,4 +1,4 @@
-package dao.entities;
+package entities;
 
 import java.util.Objects;
 

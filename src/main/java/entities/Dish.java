@@ -1,4 +1,4 @@
-package dao.entities;
+package entities;
 
 import java.util.Objects;
 
@@ -6,7 +6,9 @@ public class Dish {
     private Integer id;
     private String name;
     private String type;
-    private Float price;
+    private Double price;
+    private Double weight;
+    private Integer quantity;
 
     public Dish() {
     }
@@ -35,12 +37,28 @@ public class Dish {
         this.type = type;
     }
 
-    public Float getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override
@@ -51,12 +69,14 @@ public class Dish {
         return Objects.equals(id, dish.id) &&
                 Objects.equals(name, dish.name) &&
                 Objects.equals(type, dish.type) &&
-                Objects.equals(price, dish.price);
+                Objects.equals(price, dish.price) &&
+                Objects.equals(weight, dish.weight) &&
+                Objects.equals(quantity, dish.quantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, price);
+        return Objects.hash(id, name, type, price, weight, quantity);
     }
 
     @Override
@@ -66,6 +86,8 @@ public class Dish {
                 ", name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", price=" + price +
+                ", weight=" + weight +
+                ", quantity=" + quantity +
                 '}';
     }
 }

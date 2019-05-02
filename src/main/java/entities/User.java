@@ -1,15 +1,15 @@
-package dao.entities;
+package entities;
 
 import java.util.Objects;
 
-public class Administrator {
+public class User {
     private Integer id;
     private String name;
     private String surname;
-    private String email;
-    private String password;
+    private Integer role_id;
 
-    public Administrator() {
+    public User() {
+
     }
 
     public Integer getId() {
@@ -36,47 +36,37 @@ public class Administrator {
         this.surname = surname;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getRole_id() {
+        return role_id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRole_id(Integer role_id) {
+        this.role_id = role_id;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Administrator that = (Administrator) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(surname, that.surname) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(password, that.password);
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(surname, user.surname) &&
+                Objects.equals(role_id, user.role_id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, surname, email, password);
+        return Objects.hash(id, name, surname, role_id);
     }
 
     @Override
     public String toString() {
-        return "Administrator{" +
+        return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+                ", role_id=" + role_id +
                 '}';
     }
 }

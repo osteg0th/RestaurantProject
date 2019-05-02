@@ -1,6 +1,6 @@
 package dao;
 
-import dao.entities.Table;
+import entities.Table;
 
 import java.util.List;
 
