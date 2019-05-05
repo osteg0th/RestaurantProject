@@ -68,7 +68,7 @@ public class UserService extends Util implements UserDAO {
         return user;
     }
 
-    private void userQuery(User user, ResultSet resultSet) throws SQLException {
+    private void userQuery(User user, ResultSet resultSet) throws SQLException {    //TODO: rename this
         user.setId(resultSet.getInt("ID"));
         user.setName(resultSet.getString("NAME"));
         user.setSurname(resultSet.getString("SURNAME"));

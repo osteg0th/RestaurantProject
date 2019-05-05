@@ -1,22 +1,26 @@
-//package dao;
-//
-//import entities.Administrator;
-//
-//import java.util.List;
-//
-//public interface OrderDAO {
-//    //create
-//    void create(Administrator administrator);
-//    //read
-//    List<Administrator> getAll();
-//    Administrator getById(Integer id);
-//    Administrator getByName(String name);
-//    Administrator getBySurname(String surname);
-//    Administrator getByEmail(String email);
-//    Administrator getByPassword(String password);
-//    //update
-//    void update(Administrator administrator);
-//    //delete
-//    void remove(Administrator administrator);
-//
-//}
+package dao;
+
+import entities.Order;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+public interface OrderDAO {
+    //create
+    void create(Order order);
+    //read
+    List<Order> getAll();
+    Order getById(Integer id);
+    Order getByTotalPrice(Double priceTotal);
+    Order getByMenuId(Integer menuId);
+    Order getByOrderTime(Timestamp orderTime);
+    Order getByConfirm(Boolean confirm);
+    Order getByPaid(Boolean paid);
+    Order getByUserId(Integer userId);
+    Order getByTable(Integer tableId);
+    //update
+    void update(Order order);
+    //delete
+    void remove(Order order);
+
+}

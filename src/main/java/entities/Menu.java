@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Menu {
     private Integer id;
-    private Integer dish_id;
+    private Integer dishId;
 
     public Menu() {
     }
@@ -17,12 +17,12 @@ public class Menu {
         this.id = id;
     }
 
-    public Integer getDish_id() {
-        return dish_id;
+    public Integer getDishId() {
+        return dishId;
     }
 
-    public void setDish_id(Integer dish_id) {
-        this.dish_id = dish_id;
+    public void setDishId(Integer dishId) {
+        this.dishId = dishId;
     }
 
     @Override
@@ -31,19 +31,19 @@ public class Menu {
         if (o == null || getClass() != o.getClass()) return false;
         Menu menu = (Menu) o;
         return Objects.equals(id, menu.id) &&
-                Objects.equals(dish_id, menu.dish_id);
+                Objects.equals(dishId, menu.dishId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dish_id);
+        return Objects.hash(id, dishId);
     }
 
     @Override
     public String toString() {
         return "Menu{" +
                 "id=" + id +
-                ", dish_id=" + dish_id +
+                ", dishId=" + dishId +
                 '}';
     }
 }
