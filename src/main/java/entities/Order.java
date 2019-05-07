@@ -8,8 +8,8 @@ public class Order {
     private Double priceTotal;
     private Integer menuId;
     private Timestamp orderTime; //right type?
-    private Boolean confirm;
-    private Boolean paid;
+    private Byte confirm;
+    private Byte paid;
     private Integer userId;
     private Integer tableId;
 
@@ -32,11 +32,13 @@ public class Order {
             newOrder.orderTime = orderTime;
             return this;
         }
-        public Builder setConfirm(Boolean confirm) {
+
+        public Builder setConfirm(Byte confirm) {
             newOrder.confirm = confirm;
             return this;
         }
-        public Builder setPaid(Boolean paid) {
+
+        public Builder setPaid(Byte paid) {
             newOrder.paid = paid;
             return this;
         }
@@ -85,19 +87,19 @@ public class Order {
         this.orderTime = orderTime;
     }
 
-    public Boolean getConfirm() {
+    public Byte getConfirm() {
         return confirm;
     }
 
-    public void setConfirm(Boolean confirm) {
+    public void setConfirm(Byte confirm) {
         this.confirm = confirm;
     }
 
-    public Boolean getPaid() {
+    public Byte getPaid() {
         return paid;
     }
 
-    public void setPaid(Boolean paid) {
+    public void setPaid(Byte paid) {
         this.paid = paid;
     }
 

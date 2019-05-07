@@ -10,10 +10,10 @@ public interface TableDAO {
     //read
     List<Table> getAll();
     Table getById(Integer id);
-    Table getByStatus(Boolean status);
+
+    Table getByStatus(Byte status);
     //update
     void update(Table table);
     //delete
     void remove(Table table);
-
 }

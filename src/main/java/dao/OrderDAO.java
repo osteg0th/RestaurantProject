@@ -14,8 +14,10 @@ public interface OrderDAO {
     Order getByTotalPrice(Double priceTotal);
     Order getByMenuId(Integer menuId);
     Order getByOrderTime(Timestamp orderTime);
-    Order getByConfirm(Boolean confirm);
-    Order getByPaid(Boolean paid);
+
+    Order getByConfirm(Byte confirm);
+
+    Order getByPaid(Byte paid);
     Order getByUserId(Integer userId);
     Order getByTable(Integer tableId);
     //update

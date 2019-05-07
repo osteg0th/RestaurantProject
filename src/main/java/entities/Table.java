@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Table {
     private Integer id;
-    private Boolean status;
+    private Byte status;
 
     public Table() {
 
@@ -18,11 +18,11 @@ public class Table {
         this.id = id;
     }
 
-    public boolean isStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -31,8 +31,8 @@ public class Table {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Table table = (Table) o;
-        return status == table.status &&
-                Objects.equals(id, table.id);
+        return Objects.equals(id, table.id) &&
+                Objects.equals(status, table.status);
     }
 
     @Override

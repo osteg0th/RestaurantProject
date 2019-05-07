@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RoleDAO {
     //create
-    void crate(Role role);
+    void create(Role role); //throws SQLException is needed?
     //read
     List<Role> getAll();
     Role getById(Integer id);

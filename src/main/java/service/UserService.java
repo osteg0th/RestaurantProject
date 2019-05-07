@@ -1,7 +1,6 @@
 package service;
 
 import bI.Util;
-import com.mysql.cj.protocol.Resultset;
 import dao.UserDAO;
 import entities.User;
 
@@ -14,10 +13,8 @@ public class UserService extends Util implements UserDAO {
 
     @Override
     public void create(User user) {
-        //PreparedStatement preparedStatement = null;
         String query = "INSERT INTO USER (ID, NAME, SURNAME, ROLE_ID) VALUES (?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            //preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getSurname());
@@ -68,13 +65,6 @@ public class UserService extends Util implements UserDAO {
         return user;
     }
 
-    private void userQuery(User user, ResultSet resultSet) throws SQLException {    //TODO: rename this
-        user.setId(resultSet.getInt("ID"));
-        user.setName(resultSet.getString("NAME"));
-        user.setSurname(resultSet.getString("SURNAME"));
-        user.setRole_id(resultSet.getInt("ROLE_ID"));       //duplicate?
-    }
-
     @Override
     public User getByName(String name) {
         String query = "SELECT id, name, surname, role_id FROM user WHERE NAME = ?";
@@ -105,11 +95,34 @@ public class UserService extends Util implements UserDAO {
 
     @Override
     public void update(User user) {
+        String query = "UPDATE USER SET NAME=?, SURNAME=?, ROLE_ID=? WHERE ID=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getRole_id());
+            preparedStatement.setInt(4, user.getId());
 
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void remove(User user) {
+        String query = "DELETE FROM USER WHERE ID=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void userQuery(User user, ResultSet resultSet) throws SQLException {    //TODO: rename this
+        user.setId(resultSet.getInt("ID"));
+        user.setName(resultSet.getString("NAME"));
+        user.setSurname(resultSet.getString("SURNAME"));
+        user.setRole_id(resultSet.getInt("ROLE_ID"));       //duplicate?
     }
 }
