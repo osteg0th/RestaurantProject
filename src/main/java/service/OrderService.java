@@ -10,7 +10,6 @@ import java.util.List;
 
 public class OrderService extends Util implements OrderDAO {
     private Connection connection = getConnection();
-    private Order order;
 
     @Override
     public void create(Order order) {
