@@ -13,19 +13,26 @@ public class Util {
 //    private static final String DB_USERNAME = "root";
 //    private static final String DB_PASSWORD = "root";
 //TODO fix timezone error
-    public Connection getConnection()   {
-        Connection connection = null;
-        FileInputStream fis;
+    public Properties getProperties() {
         Properties property = new Properties();
+        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties")) {
+            property.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return property;
+    }
+
+    public Connection getConnection() {
+        Connection connection = null;
+        Properties property = getProperties();
 
         try {
-            fis = new FileInputStream("src/main/resources/config.properties");
-            property.load(fis);
             Class.forName(property.getProperty("db.driver"));   //what is this?
             connection = DriverManager.getConnection(property.getProperty("db.host"),
                     property.getProperty("db.login"), property.getProperty("db.password"));
             System.out.println("Connection OK");
-        } catch (ClassNotFoundException | IOException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println("Error");
             e.printStackTrace();
         }

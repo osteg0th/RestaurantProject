@@ -7,9 +7,11 @@ import entities.Order;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class OrderService extends Util implements OrderDAO {
     private Connection connection = getConnection();
+    private Properties properties = getProperties();
 
     @Override
     public void create(Order order) {
@@ -19,8 +21,8 @@ public class OrderService extends Util implements OrderDAO {
             preparedStatement.setDouble(2, order.getPriceTotal());
             preparedStatement.setInt(3, order.getMenuId());
 //            preparedStatement.setDate(4,order.getOrderTime());        TODO try to fix data types
-            preparedStatement.setByte(5, order.getConfirm());
-            preparedStatement.setByte(6, order.getPaid());
+            preparedStatement.setInt(5, order.getConfirm());
+            preparedStatement.setInt(6, order.getPaid());
             preparedStatement.setInt(7, order.getUserId());
             preparedStatement.setInt(8, order.getTableId());
             preparedStatement.executeUpdate();
@@ -42,8 +44,8 @@ public class OrderService extends Util implements OrderDAO {
                 order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
                 order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-                order.setConfirm(resultSet.getByte("CONFIRM"));
-                order.setPaid(resultSet.getByte("PAID"));
+                order.setConfirm(resultSet.getInt("CONFIRM"));
+                order.setPaid(resultSet.getInt("PAID"));
                 order.setUserId(resultSet.getInt("USER_ID"));
                 order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -68,8 +70,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -93,8 +95,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -118,8 +120,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -148,8 +150,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -173,8 +175,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -198,8 +200,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -223,8 +225,8 @@ public class OrderService extends Util implements OrderDAO {
             order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
             order.setMenuId(resultSet.getInt("MENU_ID"));
 //            order.setOrderTime();
-            order.setConfirm(resultSet.getByte("CONFIRM"));
-            order.setPaid(resultSet.getByte("PAID"));
+            order.setConfirm(resultSet.getInt("CONFIRM"));
+            order.setPaid(resultSet.getInt("PAID"));
             order.setUserId(resultSet.getInt("USER_ID"));
             order.setTableId(resultSet.getInt("TABLE_ID"));
 
@@ -243,8 +245,8 @@ public class OrderService extends Util implements OrderDAO {
             preparedStatement.setDouble(1, order.getPriceTotal());
             preparedStatement.setInt(2, order.getMenuId());
 //            preparedStatement.setDate(3);
-            preparedStatement.setByte(4, order.getConfirm());
-            preparedStatement.setByte(5, order.getPaid());
+            preparedStatement.setInt(4, order.getConfirm());
+            preparedStatement.setInt(5, order.getPaid());
             preparedStatement.setInt(6, order.getUserId());
             preparedStatement.setInt(7, order.getTableId());
             preparedStatement.setInt(8, order.getId());

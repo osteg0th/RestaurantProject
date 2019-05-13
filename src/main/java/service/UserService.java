@@ -7,13 +7,15 @@ import entities.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class UserService extends Util implements UserDAO {
     private Connection connection = getConnection();
+    private Properties properties = getProperties();
 
     @Override
     public void create(User user) {
-        String query = "INSERT INTO USER (ID, NAME, SURNAME, ROLE_ID) VALUES (?,?,?,?)";
+        String query = properties.getProperty("user.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setString(2, user.getName());
@@ -29,7 +31,7 @@ public class UserService extends Util implements UserDAO {
     @Override
     public List<User> getAll() {
         List<User> userList = new ArrayList<>();
-        String query = "SELECT ID, NAME, SURNAME, ROLE_ID FROM USER";
+        String query = properties.getProperty("user.getAll");
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
@@ -48,7 +50,7 @@ public class UserService extends Util implements UserDAO {
 
     @Override
     public User getById(Integer id) {
-        String query = "SELECT id, name, surname, role_id FROM user WHERE ID = ?";
+        String query = properties.getProperty("user.getById");
         User user = new User();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
@@ -67,7 +69,7 @@ public class UserService extends Util implements UserDAO {
 
     @Override
     public User getByName(String name) {
-        String query = "SELECT id, name, surname, role_id FROM user WHERE NAME = ?";
+        String query = properties.getProperty("user.getByName");
         User user = new User();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setString(1,name);
@@ -85,17 +87,44 @@ public class UserService extends Util implements UserDAO {
 
     @Override
     public User getBySurname(String surname) {
-        return null;
+
+        String query = properties.getProperty("user.getBySurname");
+        User user = new User();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, surname);
+
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+
+            userQuery(user, resultSet);
+            preparedStatement.executeUpdate();  //what is it?
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
     public User getByRole(Integer role) {
-        return null;
+        String query = properties.getProperty("user.getByRole");
+        User user = new User();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, role);
+
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+
+            userQuery(user, resultSet);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override
     public void update(User user) {
-        String query = "UPDATE USER SET NAME=?, SURNAME=?, ROLE_ID=? WHERE ID=?";
+        String query = properties.getProperty("user.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
@@ -110,7 +139,7 @@ public class UserService extends Util implements UserDAO {
 
     @Override
     public void remove(User user) {
-        String query = "DELETE FROM USER WHERE ID=?";
+        String query = properties.getProperty("user.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, user.getId());
             preparedStatement.executeUpdate();

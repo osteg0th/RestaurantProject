@@ -7,17 +7,20 @@ import entities.Table;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class TableService extends Util implements TableDAO {
     private Connection connection = getConnection();
+    private Properties properties = getProperties();
 
 
     @Override
     public void create(Table table) {
-        String query = "INSERT INTO table (id, status) VALUES (?,?) ";
+//        String query = "INSERT INTO table (id, status) VALUES (?,?)";
+        String query = properties.getProperty("table.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, table.getId());
-            preparedStatement.setByte(2, table.getStatus());
+            preparedStatement.setInt(2, table.getStatus());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -26,7 +29,7 @@ public class TableService extends Util implements TableDAO {
 
     @Override
     public List<Table> getAll() {
-        String query = "SELECT id, status FROM table";
+        String query = properties.getProperty("table.getAll");
         List<Table> tableList = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
@@ -34,7 +37,7 @@ public class TableService extends Util implements TableDAO {
                 Table table = new Table();
 
                 table.setId(resultSet.getInt("ID"));
-                table.setStatus(resultSet.getByte("STATUS"));
+                table.setStatus(resultSet.getInt("STATUS"));
 
                 tableList.add(table);
             }
@@ -46,14 +49,14 @@ public class TableService extends Util implements TableDAO {
 
     @Override
     public Table getById(Integer id) {
-        String query = "SELECT id,status FROM table WHERE id=?";
+        String query = properties.getProperty("table.getById");
         Table table = new Table();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, table.getId());
+            preparedStatement.setInt(0, table.getId());
 
             ResultSet resultSet = preparedStatement.executeQuery(query);
             table.setId(resultSet.getInt("ID"));
-            table.setStatus(resultSet.getByte("STATUS"));
+            table.setStatus(resultSet.getInt("STATUS"));
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -63,15 +66,15 @@ public class TableService extends Util implements TableDAO {
     }
 
     @Override
-    public Table getByStatus(Byte status) {
-        String query = "SELECT id,status FROM table WHERE status=?";
+    public Table getByStatus(Integer status) {
+        String query = properties.getProperty("table.getByStatus");
         Table table = new Table();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setByte(1, table.getStatus());
+            preparedStatement.setInt(1, table.getStatus());
 
             ResultSet resultSet = preparedStatement.executeQuery(query);
             table.setId(resultSet.getInt("ID"));
-            table.setStatus(resultSet.getByte("STATUS"));
+            table.setStatus(resultSet.getInt("STATUS"));
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -82,9 +85,9 @@ public class TableService extends Util implements TableDAO {
 
     @Override
     public void update(Table table) {
-        String query = "UPDATE table SET status=? WHERE id=?";
+        String query = properties.getProperty("table.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setByte(1, table.getStatus());
+            preparedStatement.setInt(1, table.getStatus());
             preparedStatement.setInt(2, table.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -94,7 +97,7 @@ public class TableService extends Util implements TableDAO {
 
     @Override
     public void remove(Table table) {
-        String query = "DELETE FROM table WHERE id=?";
+        String query = properties.getProperty("table.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, table.getId());
             preparedStatement.executeUpdate();

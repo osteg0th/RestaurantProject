@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Table {
     private Integer id;
-    private Byte status;
+    private Integer status;
 
     public Table() {
 
@@ -18,11 +18,11 @@ public class Table {
         this.id = id;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

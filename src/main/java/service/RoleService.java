@@ -4,19 +4,20 @@ import bI.Util;
 import dao.RoleDAO;
 import entities.Role;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class RoleService extends Util implements RoleDAO {
     private Connection connection = getConnection();
+    private Properties properties = getProperties();
 
 
     @Override
     public void create(Role role) {
-        String query = "INSERT INTO ROLE (ID, ACCESS) VALUES (?,?)";
+//        String query = "INSERT INTO ROLE (ID, ACCESS) VALUES (?,?)";
+        String query = properties.getProperty("role.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, role.getId());
             preparedStatement.setString(2, role.getAccess());
@@ -30,7 +31,7 @@ public class RoleService extends Util implements RoleDAO {
     @Override
     public List<Role> getAll() {
         List<Role> roleList = new ArrayList<>();
-        String query = "SELECT id, access FROM role";
+        String query = properties.getProperty("role.getAll");
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
@@ -48,10 +49,10 @@ public class RoleService extends Util implements RoleDAO {
 
     @Override
     public Role getById(Integer id) {
-        String query = "SELECT id, access FROM role WHERE id=?";
+//        String query = "SELECT id, access FROM role WHERE id=?";
+        String query = properties.getProperty("role.getById");
         Role role = new Role();
-        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
 
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -60,7 +61,7 @@ public class RoleService extends Util implements RoleDAO {
             role.setAccess(resultSet.getString("ACCESS"));
 
             preparedStatement.executeUpdate();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return role;
@@ -68,10 +69,9 @@ public class RoleService extends Util implements RoleDAO {
 
     @Override
     public Role getByAccess(String access) {
-        String query = "";
+        String query = properties.getProperty("role.getByAccess");
         Role role = new Role();
-        try (FileInputStream fis = new FileInputStream("src/main/resources/config.properties");
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, access);
 
             ResultSet resultSet = preparedStatement.executeQuery(query);
@@ -80,7 +80,7 @@ public class RoleService extends Util implements RoleDAO {
             role.setAccess(resultSet.getString("ACCESS"));
 
             preparedStatement.executeUpdate();
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return role;
@@ -88,7 +88,7 @@ public class RoleService extends Util implements RoleDAO {
 
     @Override
     public void update(Role role) {
-        String query = "UPDATE ROLE SET ACCESS=? WHERE ID=?";
+        String query = properties.getProperty("role.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, role.getAccess());
             preparedStatement.setInt(2, role.getId());
@@ -101,7 +101,7 @@ public class RoleService extends Util implements RoleDAO {
 
     @Override
     public void remove(Role role) {
-        String query = "DELETE FROM role WHERE id=?";
+        String query = properties.getProperty("role.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, role.getId());
             preparedStatement.executeUpdate();

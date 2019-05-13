@@ -7,13 +7,16 @@ import entities.Menu;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class MenuService extends Util implements MenuDAO {
     private Connection connection = getConnection();
+    private Properties properties = getProperties();
 
     @Override
     public void create(Menu menu) {
-        String query = "INSERT INTO MENU (id, dish_id) VALUES (?,?)";
+//        String query = "INSERT INTO MENU (id, dish_id) VALUES (?,?)";
+        String query = properties.getProperty("menu.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, menu.getId());
             preparedStatement.setInt(2, menu.getDishId());
@@ -27,7 +30,7 @@ public class MenuService extends Util implements MenuDAO {
     @Override
     public List<Menu> getAll() {
         List<Menu> menuList = new ArrayList<>();
-        String query = "";
+        String query = properties.getProperty("menu.getAll");
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
@@ -47,7 +50,7 @@ public class MenuService extends Util implements MenuDAO {
 
     @Override
     public Menu getById(Integer id) {
-        String query = "SELECT ID, DISH_ID from menu where ID=?";
+        String query = properties.getProperty("menu.getById");
         Menu menu = new Menu();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
@@ -62,7 +65,7 @@ public class MenuService extends Util implements MenuDAO {
 
     @Override
     public void update(Menu menu) {
-        String query = "UPDATE MENU SET DISH_ID=? WHERE ID=?";
+        String query = properties.getProperty("menu.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, menu.getDishId());
             preparedStatement.setInt(2, menu.getId());
@@ -75,7 +78,7 @@ public class MenuService extends Util implements MenuDAO {
 
     @Override
     public void remove(Menu menu) {
-        String query = "DELETE FROM MENU WHERE ID=?";
+        String query = properties.getProperty("menu.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, menu.getId());
             preparedStatement.executeUpdate();

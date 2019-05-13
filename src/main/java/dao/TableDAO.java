@@ -11,7 +11,7 @@ public interface TableDAO {
     List<Table> getAll();
     Table getById(Integer id);
 
-    Table getByStatus(Byte status);
+    Table getByStatus(Integer status);
     //update
     void update(Table table);
     //delete

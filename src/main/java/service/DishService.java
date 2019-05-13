@@ -7,13 +7,16 @@ import entities.Dish;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class DishService extends Util implements DishDAO {
     private Connection connection = getConnection();
+    private Properties properties = getProperties();
 
     @Override
     public void create(Dish dish) {
-        String query = "INSERT INTO dish (id, name, type, price, weight) VALUE(?,?,?,?,?)";
+//        String query = "INSERT INTO dish (id, name, type, price, weight) VALUE(?,?,?,?,?)";
+        String query = properties.getProperty("dish.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, dish.getId());
             preparedStatement.setString(2, dish.getName());
@@ -30,7 +33,8 @@ public class DishService extends Util implements DishDAO {
     @Override
     public List<Dish> getAll() {
         List<Dish> dishList = new ArrayList<>();
-        String query = "SELECT id, name, type, price, weight FROM dish";
+//        String query = "SELECT id, name, type, price, weight FROM dish";
+        String query = properties.getProperty("dish.getAll");
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
@@ -50,7 +54,8 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getById(Integer id) {
-        String query = "SELECT id, name, type, price, weight FROM dish where id=?";
+//        String query = "SELECT id, name, type, price, weight FROM dish where id=?";
+        String query = properties.getProperty("dish.getById");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, dish.getId());
@@ -67,7 +72,8 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getByName(String name) {
-        String query = "SELECT id, name, type, price, weight FROM dish where name=?";
+//        String query = "SELECT id, name, type, price, weight FROM dish where name=?";
+        String query = properties.getProperty("dish.getByName");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, dish.getName());
@@ -85,7 +91,8 @@ public class DishService extends Util implements DishDAO {
     @Override
     public Dish getByType(String type) {
 
-        String query = "SELECT id, name, type, price, weight FROM dish where type=?";
+//        String query = "SELECT id, name, type, price, weight FROM dish where type=?";
+        String query = properties.getProperty("dish.getByType");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, dish.getType());
@@ -103,7 +110,8 @@ public class DishService extends Util implements DishDAO {
     @Override
     public Dish getByPrice(Double price) {
 
-        String query = "SELECT id, name, type, price, weight FROM dish where price=?";
+//        String query = "SELECT id, name, type, price, weight FROM dish where price=?";
+        String query = properties.getProperty("dish.getByPrice");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, dish.getPrice());
@@ -120,8 +128,8 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getByWeight(Double weight) {
-
-        String query = "SELECT id, name, type, price, weight FROM dish where price=?";
+//        String query = "SELECT id, name, type, price, weight FROM dish where price=?";
+        String query = properties.getProperty("dish.getByWeight");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, dish.getWeight());
@@ -138,7 +146,8 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public void update(Dish dish) {
-        String query = "UPDATE dish SET name=?,type=?,price=?,weight=? WHERE id=?";
+//        String query = "UPDATE dish SET name=?,type=?,price=?,weight=? WHERE id=?";
+        String query = properties.getProperty("dish.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, dish.getName());
             preparedStatement.setString(2, dish.getType());
@@ -154,7 +163,8 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public void remove(Dish dish) {
-        String query = "DELETE FROM dish WHERE id=?";
+//        String query = "DELETE FROM dish WHERE id=?";
+        String query = properties.getProperty("dish.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, dish.getId());
             preparedStatement.executeUpdate();
