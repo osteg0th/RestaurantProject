@@ -8,7 +8,6 @@ public class Dish {
     private String type;
     private Double price;
     private Double weight;
-    private Integer quantity;
 
     public Dish() {
     }
@@ -53,14 +52,6 @@ public class Dish {
         this.weight = weight;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,13 +61,12 @@ public class Dish {
                 Objects.equals(name, dish.name) &&
                 Objects.equals(type, dish.type) &&
                 Objects.equals(price, dish.price) &&
-                Objects.equals(weight, dish.weight) &&
-                Objects.equals(quantity, dish.quantity);
+                Objects.equals(weight, dish.weight);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, price, weight, quantity);
+        return Objects.hash(id, name, type, price, weight);
     }
 
     @Override
@@ -87,7 +77,6 @@ public class Dish {
                 ", type='" + type + '\'' +
                 ", price=" + price +
                 ", weight=" + weight +
-                ", quantity=" + quantity +
                 '}';
     }
 }

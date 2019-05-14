@@ -49,18 +49,16 @@ public class RoleService extends Util implements RoleDAO {
 
     @Override
     public Role getById(Integer id) {
-//        String query = "SELECT id, access FROM role WHERE id=?";
         String query = properties.getProperty("role.getById");
         Role role = new Role();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
-
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.first();
             role.setId(resultSet.getInt("ID"));
             role.setAccess(resultSet.getString("ACCESS"));
 
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,12 +72,11 @@ public class RoleService extends Util implements RoleDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, access);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
-
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.first();
             role.setId(resultSet.getInt("ID"));
             role.setAccess(resultSet.getString("ACCESS"));
 
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

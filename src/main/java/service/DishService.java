@@ -15,7 +15,6 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public void create(Dish dish) {
-//        String query = "INSERT INTO dish (id, name, type, price, weight) VALUE(?,?,?,?,?)";
         String query = properties.getProperty("dish.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, dish.getId());
@@ -33,7 +32,6 @@ public class DishService extends Util implements DishDAO {
     @Override
     public List<Dish> getAll() {
         List<Dish> dishList = new ArrayList<>();
-//        String query = "SELECT id, name, type, price, weight FROM dish";
         String query = properties.getProperty("dish.getAll");
 
         try (Statement statement = connection.createStatement()) {
@@ -54,16 +52,13 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getById(Integer id) {
-//        String query = "SELECT id, name, type, price, weight FROM dish where id=?";
         String query = properties.getProperty("dish.getById");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, dish.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,16 +67,13 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getByName(String name) {
-//        String query = "SELECT id, name, type, price, weight FROM dish where name=?";
         String query = properties.getProperty("dish.getByName");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, dish.getName());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -90,17 +82,13 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getByType(String type) {
-
-//        String query = "SELECT id, name, type, price, weight FROM dish where type=?";
         String query = properties.getProperty("dish.getByType");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, dish.getType());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setString(1, type);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -109,17 +97,13 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getByPrice(Double price) {
-
-//        String query = "SELECT id, name, type, price, weight FROM dish where price=?";
         String query = properties.getProperty("dish.getByPrice");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, dish.getPrice());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setDouble(1, price);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,16 +112,13 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public Dish getByWeight(Double weight) {
-//        String query = "SELECT id, name, type, price, weight FROM dish where price=?";
         String query = properties.getProperty("dish.getByWeight");
         Dish dish = new Dish();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setDouble(1, dish.getWeight());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setDouble(1, weight);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -146,7 +127,6 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public void update(Dish dish) {
-//        String query = "UPDATE dish SET name=?,type=?,price=?,weight=? WHERE id=?";
         String query = properties.getProperty("dish.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, dish.getName());
@@ -163,7 +143,6 @@ public class DishService extends Util implements DishDAO {
 
     @Override
     public void remove(Dish dish) {
-//        String query = "DELETE FROM dish WHERE id=?";
         String query = properties.getProperty("dish.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, dish.getId());
@@ -174,6 +153,7 @@ public class DishService extends Util implements DishDAO {
     }
 
     private void dishQuery(Dish dish, ResultSet resultSet) throws SQLException {    //TODO: rename this
+        resultSet.first();
         dish.setId(resultSet.getInt("ID"));
         dish.setName(resultSet.getString("NAME"));
         dish.setType(resultSet.getString("TYPE"));

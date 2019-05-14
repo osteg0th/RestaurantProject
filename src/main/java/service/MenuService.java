@@ -15,7 +15,6 @@ public class MenuService extends Util implements MenuDAO {
 
     @Override
     public void create(Menu menu) {
-//        String query = "INSERT INTO MENU (id, dish_id) VALUES (?,?)";
         String query = properties.getProperty("menu.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, menu.getId());
@@ -54,7 +53,9 @@ public class MenuService extends Util implements MenuDAO {
         Menu menu = new Menu();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
+
             ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.first();
             menu.setId(resultSet.getInt("ID"));
             menu.setDishId(resultSet.getInt("DISH_ID"));
         } catch (SQLException e) {
@@ -67,6 +68,7 @@ public class MenuService extends Util implements MenuDAO {
     public void update(Menu menu) {
         String query = properties.getProperty("menu.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
             preparedStatement.setInt(1, menu.getDishId());
             preparedStatement.setInt(2, menu.getId());
 

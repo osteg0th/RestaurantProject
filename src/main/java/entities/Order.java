@@ -1,13 +1,11 @@
 package entities;
 
-import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Order {
     private Integer id;
     private Double priceTotal;
     private Integer menuId;
-    private Timestamp orderTime; //right type?
     private Integer confirm;
     private Integer paid;
     private Integer userId;
@@ -28,16 +26,10 @@ public class Order {
             newOrder.menuId = menuId;
             return this;
         }
-        public Builder setOrderTime(Timestamp orderTime) {
-            newOrder.orderTime = orderTime;
-            return this;
-        }
-
         public Builder setConfirm(Integer confirm) {
             newOrder.confirm = confirm;
             return this;
         }
-
         public Builder setPaid(Integer paid) {
             newOrder.paid = paid;
             return this;
@@ -77,14 +69,6 @@ public class Order {
 
     public void setMenuId(Integer menuId) {
         this.menuId = menuId;
-    }
-
-    public Timestamp getOrderTime() {
-        return orderTime;
-    }
-
-    public void setOrderTime(Timestamp orderTime) {
-        this.orderTime = orderTime;
     }
 
     public Integer getConfirm() {
@@ -127,7 +111,6 @@ public class Order {
         return Objects.equals(id, order.id) &&
                 Objects.equals(priceTotal, order.priceTotal) &&
                 Objects.equals(menuId, order.menuId) &&
-                Objects.equals(orderTime, order.orderTime) &&
                 Objects.equals(confirm, order.confirm) &&
                 Objects.equals(paid, order.paid) &&
                 Objects.equals(userId, order.userId) &&
@@ -136,7 +119,7 @@ public class Order {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, priceTotal, menuId, orderTime, confirm, paid, userId, tableId);
+        return Objects.hash(id, priceTotal, menuId, confirm, paid, userId, tableId);
     }
 
     @Override
@@ -145,7 +128,6 @@ public class Order {
                 "id=" + id +
                 ", priceTotal=" + priceTotal +
                 ", menuId=" + menuId +
-                ", orderTime=" + orderTime +
                 ", confirm=" + confirm +
                 ", paid=" + paid +
                 ", userId=" + userId +

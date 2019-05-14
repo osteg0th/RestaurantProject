@@ -52,13 +52,12 @@ public class TableService extends Util implements TableDAO {
         String query = properties.getProperty("table.getById");
         Table table = new Table();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(0, table.getId());
+            preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.first();
             table.setId(resultSet.getInt("ID"));
             table.setStatus(resultSet.getInt("STATUS"));
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,13 +69,12 @@ public class TableService extends Util implements TableDAO {
         String query = properties.getProperty("table.getByStatus");
         Table table = new Table();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, table.getStatus());
+            preparedStatement.setInt(1, status);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.first();
             table.setId(resultSet.getInt("ID"));
             table.setStatus(resultSet.getInt("STATUS"));
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

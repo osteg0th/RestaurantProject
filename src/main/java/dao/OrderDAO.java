@@ -2,7 +2,6 @@ package dao;
 
 import entities.Order;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public interface OrderDAO {
@@ -13,10 +12,7 @@ public interface OrderDAO {
     Order getById(Integer id);
     Order getByTotalPrice(Double priceTotal);
     Order getByMenuId(Integer menuId);
-    Order getByOrderTime(Timestamp orderTime);
-
     Order getByConfirm(Byte confirm);
-
     Order getByPaid(Byte paid);
     Order getByUserId(Integer userId);
     Order getByTable(Integer tableId);

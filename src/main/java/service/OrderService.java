@@ -15,12 +15,11 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public void create(Order order) {
-        String query = "INSERT INTO order (id, price_total, menu_id, order_time, confirm, paid, user_id, table_id) VALUES (?,?,?,?,?,?,?,?)";
+        String query = properties.getProperty("order.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, order.getId());
             preparedStatement.setDouble(2, order.getPriceTotal());
             preparedStatement.setInt(3, order.getMenuId());
-//            preparedStatement.setDate(4,order.getOrderTime());        TODO try to fix data types
             preparedStatement.setInt(5, order.getConfirm());
             preparedStatement.setInt(6, order.getPaid());
             preparedStatement.setInt(7, order.getUserId());
@@ -33,21 +32,14 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public List<Order> getAll() {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order";
+        String query = properties.getProperty("order.getAll");
         List<Order> orderList = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 Order order = new Order();
 
-                order.setId(resultSet.getInt("ID"));
-                order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-                order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-                order.setConfirm(resultSet.getInt("CONFIRM"));
-                order.setPaid(resultSet.getInt("PAID"));
-                order.setUserId(resultSet.getInt("USER_ID"));
-                order.setTableId(resultSet.getInt("TABLE_ID"));
+                getOrder(resultSet, order);
 
                 orderList.add(order);
             }
@@ -60,23 +52,13 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public Order getById(Integer id) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order ID=?";
+        String query = properties.getProperty("order.getById");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
-
-
-            preparedStatement.executeUpdate();
+            getOrder(resultSet, order);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,23 +67,14 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public Order getByTotalPrice(Double priceTotal) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order priceTotal=?";
+        String query = properties.getProperty("order.getByTotalPrice");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setDouble(1, priceTotal);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
+            getOrder(resultSet, order);
 
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -110,23 +83,13 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public Order getByMenuId(Integer menuId) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order menu_id=?";
+        String query = properties.getProperty("order.getByMenuId");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, menuId);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
-
-
-            preparedStatement.executeUpdate();
+            getOrder(resultSet, order);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -134,29 +97,14 @@ public class OrderService extends Util implements OrderDAO {
     }
 
     @Override
-    public Order getByOrderTime(Timestamp orderTime) {
-        return null;
-    }
-
-    @Override
     public Order getByConfirm(Byte confirm) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order confirm=?";
+        String query = properties.getProperty("order.getByConfirm");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, confirm);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
-
-
-            preparedStatement.executeUpdate();
+            getOrder(resultSet, order);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -165,23 +113,13 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public Order getByPaid(Byte paid) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order paid=?";
+        String query = properties.getProperty("order.getByPaid");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, paid);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
-
-
-            preparedStatement.executeUpdate();
+            getOrder(resultSet, order);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -190,23 +128,14 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public Order getByUserId(Integer userId) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order user_id=?";
+        String query = properties.getProperty("order.getByUserId");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
+            getOrder(resultSet, order);
 
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -215,43 +144,42 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public Order getByTable(Integer tableId) {
-        String query = "SELECT id, price_total, menu_id, order_time, confirm, paid, user_id, table_id FROM order table_id=?";
+        String query = properties.getProperty("order.getByTable");
         Order order = new Order();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, order.getId());
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            order.setId(resultSet.getInt("ID"));
-            order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
-            order.setMenuId(resultSet.getInt("MENU_ID"));
-//            order.setOrderTime();
-            order.setConfirm(resultSet.getInt("CONFIRM"));
-            order.setPaid(resultSet.getInt("PAID"));
-            order.setUserId(resultSet.getInt("USER_ID"));
-            order.setTableId(resultSet.getInt("TABLE_ID"));
+            getOrder(resultSet, order);
 
-
-            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return order;
     }
 
+    private void getOrder(ResultSet resultSet, Order order) throws SQLException {
+        resultSet.first();
+        order.setId(resultSet.getInt("ID"));
+        order.setPriceTotal(resultSet.getDouble("PRICE_TOTAL"));
+        order.setMenuId(resultSet.getInt("MENU_ID"));
+        order.setConfirm(resultSet.getInt("CONFIRM"));
+        order.setPaid(resultSet.getInt("PAID"));
+        order.setUserId(resultSet.getInt("USER_ID"));
+        order.setTableId(resultSet.getInt("TABLE_ID"));
+    }
+
     @Override
     public void update(Order order) {
-        String query = "UPDATE order SET price_total=?, menu_id=?, order_time=?, confirm=?, paid=?, user_id=?, table_id=? WHERE ID=?,";
+        String query = properties.getProperty("order.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDouble(1, order.getPriceTotal());
             preparedStatement.setInt(2, order.getMenuId());
-//            preparedStatement.setDate(3);
-            preparedStatement.setInt(4, order.getConfirm());
-            preparedStatement.setInt(5, order.getPaid());
-            preparedStatement.setInt(6, order.getUserId());
-            preparedStatement.setInt(7, order.getTableId());
-            preparedStatement.setInt(8, order.getId());
-
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(3, order.getConfirm());
+            preparedStatement.setInt(4, order.getPaid());
+            preparedStatement.setInt(5, order.getUserId());
+            preparedStatement.setInt(6, order.getTableId());
+            preparedStatement.setInt(7, order.getId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -259,7 +187,7 @@ public class OrderService extends Util implements OrderDAO {
 
     @Override
     public void remove(Order order) {
-        String query = "DELET FROM order WHERE ID=?";
+        String query = properties.getProperty("order.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, order.getId());
             preparedStatement.executeUpdate();

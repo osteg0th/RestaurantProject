@@ -38,7 +38,7 @@ public class UserService extends Util implements UserDAO {
             while (resultSet.next()) {
                 User user = new User();
 
-                userQuery(user, resultSet);
+                getUser(user, resultSet);
 
                 userList.add(user);
             }
@@ -56,11 +56,9 @@ public class UserService extends Util implements UserDAO {
 
             preparedStatement.setInt(1, id);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            userQuery(user, resultSet);
-
-            preparedStatement.executeUpdate();
+            getUser(user, resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,10 +72,9 @@ public class UserService extends Util implements UserDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setString(1,name);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            userQuery(user, resultSet);
-            preparedStatement.executeUpdate();  //what is it?
+            getUser(user, resultSet);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -93,10 +90,9 @@ public class UserService extends Util implements UserDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, surname);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            userQuery(user, resultSet);
-            preparedStatement.executeUpdate();  //what is it?
+            getUser(user, resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,11 +107,9 @@ public class UserService extends Util implements UserDAO {
 
             preparedStatement.setInt(1, role);
 
-            ResultSet resultSet = preparedStatement.executeQuery(query);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-            userQuery(user, resultSet);
-
-            preparedStatement.executeUpdate();
+            getUser(user, resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -148,7 +142,8 @@ public class UserService extends Util implements UserDAO {
         }
     }
 
-    private void userQuery(User user, ResultSet resultSet) throws SQLException {    //TODO: rename this
+    private void getUser(User user, ResultSet resultSet) throws SQLException {    //TODO: rename this
+        resultSet.first();
         user.setId(resultSet.getInt("ID"));
         user.setName(resultSet.getString("NAME"));
         user.setSurname(resultSet.getString("SURNAME"));
