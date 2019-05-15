@@ -6,6 +6,7 @@
 
     <groupId>com.github.osteg0th</groupId>
     <artifactId>Restaurant</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -20,39 +21,37 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+        <junit.jupiter.version>5.4.2</junit.jupiter.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
         </dependency>
-
         <dependency>
             <groupId>jstl</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.11</version>
         </dependency>
-
         <!--<dependency>-->
         <!--<groupId>junit</groupId>-->
         <!--<artifactId>junit</artifactId>-->
         <!--<version>4.12</version>-->
         <!--<scope>test</scope>-->
         <!--</dependency>-->
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>2.10.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -63,31 +62,34 @@
         <!--<artifactId>log4j-api</artifactId>-->
         <!--<version>2.11.2</version>-->
         <!--</dependency>-->
-
         <!--<dependency>-->
         <!--<groupId>org.apache.logging.log4j</groupId>-->
         <!--<artifactId>log4j-core</artifactId>-->
         <!--<version>2.11.2</version>-->
         <!--</dependency>-->
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.2</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-runner</artifactId>
-            <version>1.4.2</version>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-
+        <!--<dependency>-->
+        <!--<groupId>org.junit.platform</groupId>-->
+        <!--<artifactId>junit-platform-runner</artifactId>-->
+        <!--<version>1.4.2</version>-->
+        <!--<scope>test</scope>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>simple-jndi</groupId>
             <artifactId>simple-jndi</artifactId>
             <version>0.11.4</version>
         </dependency>
-
     </dependencies>
 
 </project>

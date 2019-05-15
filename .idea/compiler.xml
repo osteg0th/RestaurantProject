@@ -7,8 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Restaurant" />
-        <module name="RestaurantProject" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="RestaurantWeb" target="1.7" />
+      <module name="web" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
