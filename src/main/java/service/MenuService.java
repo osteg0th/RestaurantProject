@@ -1,6 +1,7 @@
 package service;
 
-import bI.Util;
+import bI.ConnectionSingleton;
+import bI.PropertiesSingleton;
 import dao.MenuDAO;
 import entities.Menu;
 
@@ -10,8 +11,10 @@ import java.util.List;
 import java.util.Properties;
 
 public class MenuService extends Util implements MenuDAO {
-    private Connection connection = getConnection();
-    private Properties properties = getProperties();
+    private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
+    private Connection connection = connectionSingleton.getConnection();
+    private PropertiesSingleton propertiesSingleton = PropertiesSingleton.getInstance();
+    private Properties properties = propertiesSingleton.getProperties();
 
     @Override
     public void create(Menu menu) {

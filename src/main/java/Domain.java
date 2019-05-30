@@ -1,5 +1,5 @@
-import bI.Util;
-import entities.Dish;
+import entities.Role;
+import entities.Table;
 import org.apache.log4j.Logger;
 import service.DishService;
 import service.RoleService;
@@ -9,22 +9,23 @@ public class Domain {
     private static final Logger log = Logger.getLogger(Domain.class);
     public static void main(String[] args) {
 
-        Util util = new Util();
-        util.getConnection();
         RoleService roleService = new RoleService();
         TableService tableService = new TableService();
         DishService dishService = new DishService();
 
-        Dish dish = new Dish();
-        dish.setName("1");
-        dish.setPrice(1.);
-        dish.setType("1");
-        dish.setWeight(1.);
+        Role role = new Role();
+        role.setAccess("test");
+        roleService.create(role);
+        System.out.println(roleService.getById(1));
+        System.out.println(roleService.getById(10));
 
-        dishService.create(dish);
-        System.out.println(dishService.getById(1));
+        Table table = new Table();
+        table.setId(1);
+        table.setStatus(1);
 
-
+        tableService.create(table);
+        System.out.println(tableService.getById(1));
+        System.out.println(tableService.getById(2));
 
         System.out.println("end");
     }

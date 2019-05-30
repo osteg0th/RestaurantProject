@@ -1,6 +1,7 @@
 package service;
 
-import bI.Util;
+import bI.ConnectionSingleton;
+import bI.PropertiesSingleton;
 import dao.TableDAO;
 import entities.Table;
 
@@ -10,8 +11,10 @@ import java.util.List;
 import java.util.Properties;
 
 public class TableService extends Util implements TableDAO {
-    private Connection connection = getConnection();
-    private Properties properties = getProperties();
+    private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
+    private Connection connection = connectionSingleton.getConnection();
+    private PropertiesSingleton propertiesSingleton = PropertiesSingleton.getInstance();
+    private Properties properties = propertiesSingleton.getProperties();
 
 
     @Override
