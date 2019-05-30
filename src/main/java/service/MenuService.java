@@ -19,7 +19,6 @@ public class MenuService extends Util implements MenuDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, menu.getId());
             preparedStatement.setInt(2, menu.getDishId());
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -79,10 +78,10 @@ public class MenuService extends Util implements MenuDAO {
     }
 
     @Override
-    public void remove(Menu menu) {
+    public void remove(Integer id) {
         String query = properties.getProperty("menu.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, menu.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

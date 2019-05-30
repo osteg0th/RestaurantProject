@@ -15,5 +15,5 @@ public interface TableDAO {
     //update
     void update(Table table);
     //delete
-    void remove(Table table);
+    void remove(Integer id);
 }

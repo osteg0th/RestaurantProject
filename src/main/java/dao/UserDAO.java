@@ -13,9 +13,11 @@ public interface UserDAO {
     User getByName(String name);
     User getBySurname(String surname);
     User getByRole(Integer role);
+
+    User getLogin(String email, String password);
     //update
     void update(User user);
     //delete
-    void remove(User user);
+    void remove(Integer id);
 
 }

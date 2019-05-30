@@ -16,12 +16,9 @@ public class RoleService extends Util implements RoleDAO {
 
     @Override
     public void create(Role role) {
-//        String query = "INSERT INTO ROLE (ID, ACCESS) VALUES (?,?)";
         String query = properties.getProperty("role.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, role.getId());
-            preparedStatement.setString(2, role.getAccess());
-
+            preparedStatement.setString(1, role.getAccess());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +53,7 @@ public class RoleService extends Util implements RoleDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.first();
-            role.setId(resultSet.getInt("ID"));
+            role.setId(resultSet.getInt("id"));
             role.setAccess(resultSet.getString("ACCESS"));
 
         } catch (SQLException e) {
@@ -97,10 +94,10 @@ public class RoleService extends Util implements RoleDAO {
     }
 
     @Override
-    public void remove(Role role) {
+    public void remove(Integer id) {
         String query = properties.getProperty("role.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, role.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

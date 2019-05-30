@@ -13,6 +13,6 @@ public interface MenuDAO {
     //update
     void update(Menu menu);
     //delete
-    void remove(Menu menu);
+    void remove(Integer id);
 
 }

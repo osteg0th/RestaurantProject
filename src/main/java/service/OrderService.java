@@ -17,13 +17,12 @@ public class OrderService extends Util implements OrderDAO {
     public void create(Order order) {
         String query = properties.getProperty("order.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
-            preparedStatement.setDouble(2, order.getPriceTotal());
-            preparedStatement.setInt(3, order.getMenuId());
-            preparedStatement.setInt(5, order.getConfirm());
-            preparedStatement.setInt(6, order.getPaid());
-            preparedStatement.setInt(7, order.getUserId());
-            preparedStatement.setInt(8, order.getTableId());
+            preparedStatement.setDouble(1, order.getPriceTotal());
+            preparedStatement.setInt(2, order.getMenuId());
+            preparedStatement.setInt(3, order.getConfirm());
+            preparedStatement.setInt(4, order.getPaid());
+            preparedStatement.setInt(5, order.getUserId());
+            preparedStatement.setInt(6, order.getTableId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -186,10 +185,10 @@ public class OrderService extends Util implements OrderDAO {
     }
 
     @Override
-    public void remove(Order order) {
+    public void remove(Integer id) {
         String query = properties.getProperty("order.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, order.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

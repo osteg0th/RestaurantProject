@@ -8,9 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>Register</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body>
-<h1>Huli ono ne rabotaet?</h1>
+<div class="wrapper">
+    <h1>Hello User!</h1>
+    <a href="${pageContext.request.contextPath}/views/login.jsp">Click here!</a>
+</div>
 </body>
 </html>

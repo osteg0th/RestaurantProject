@@ -17,11 +17,9 @@ public class UserService extends Util implements UserDAO {
     public void create(User user) {
         String query = properties.getProperty("user.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getSurname());
-            preparedStatement.setInt(4, user.getRole_id());
-
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setInt(3, user.getRole_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -117,6 +115,23 @@ public class UserService extends Util implements UserDAO {
     }
 
     @Override
+    public User getLogin(String email, String password) {
+        String query = properties.getProperty("user.getLogin");
+        User user = new User();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            getUser(user, resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
     public void update(User user) {
         String query = properties.getProperty("user.update");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -132,10 +147,10 @@ public class UserService extends Util implements UserDAO {
     }
 
     @Override
-    public void remove(User user) {
+    public void remove(Integer id) {
         String query = properties.getProperty("user.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

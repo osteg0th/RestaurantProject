@@ -14,5 +14,5 @@ public interface RoleDAO {
     //update
     void update(Role role);
     //delete
-    void remove(Role role);
+    void remove(Integer id);
 }

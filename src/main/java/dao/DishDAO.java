@@ -17,6 +17,6 @@ public interface DishDAO {
     //update
     void update(Dish dish);
     //delete
-    void remove(Dish dish);
+    void remove(Integer id);
 
 }

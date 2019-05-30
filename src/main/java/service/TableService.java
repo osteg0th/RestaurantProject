@@ -16,7 +16,6 @@ public class TableService extends Util implements TableDAO {
 
     @Override
     public void create(Table table) {
-//        String query = "INSERT INTO table (id, status) VALUES (?,?)";
         String query = properties.getProperty("table.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, table.getId());
@@ -94,10 +93,10 @@ public class TableService extends Util implements TableDAO {
     }
 
     @Override
-    public void remove(Table table) {
+    public void remove(Integer id) {
         String query = properties.getProperty("table.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, table.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

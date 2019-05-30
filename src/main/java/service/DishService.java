@@ -142,10 +142,10 @@ public class DishService extends Util implements DishDAO {
     }
 
     @Override
-    public void remove(Dish dish) {
+    public void remove(Integer id) {
         String query = properties.getProperty("dish.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, dish.getId());
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
