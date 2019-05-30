@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class OrderService extends Util implements OrderDAO {
+public class OrderService implements OrderDAO {
     private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
     private Connection connection = connectionSingleton.getConnection();
-    private PropertiesSingleton propertiesSingleton = PropertiesSingleton.getInstance();
-    private Properties properties = propertiesSingleton.getProperties();
+    private Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
 
     @Override
     public void create(Order order) {

@@ -10,11 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class MenuService extends Util implements MenuDAO {
+public class MenuService implements MenuDAO {
     private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
     private Connection connection = connectionSingleton.getConnection();
-    private PropertiesSingleton propertiesSingleton = PropertiesSingleton.getInstance();
-    private Properties properties = propertiesSingleton.getProperties();
+    private Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
 
     @Override
     public void create(Menu menu) {

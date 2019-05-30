@@ -16,15 +16,17 @@ public class PropertiesSingleton {
         }
     }
 
+    public static final PropertiesSingleton PROPERTIES_SINGLETON = new PropertiesSingleton();
+
     public Properties getProperties() {
         return properties;
     }
 
-    private static class SingletonHolder {
-        public static final PropertiesSingleton HOLDER_INSTANCE = new PropertiesSingleton();
-    }
-
-    public static PropertiesSingleton getInstance() {
-        return SingletonHolder.HOLDER_INSTANCE;
-    }
+//    private static class SingletonHolder {
+//        public static final PropertiesSingleton HOLDER_INSTANCE = new PropertiesSingleton();
+//    }
+//
+//    public static PropertiesSingleton getInstance() {
+//        return SingletonHolder.HOLDER_INSTANCE;
+//    }
 }

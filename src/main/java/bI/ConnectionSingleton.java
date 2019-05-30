@@ -10,8 +10,8 @@ public class ConnectionSingleton {
     private Connection connection;
 
     private ConnectionSingleton() {
-        PropertiesSingleton instance = PropertiesSingleton.getInstance();
-        Properties properties = instance.getProperties();
+//        PropertiesSingleton instance = PropertiesSingleton.getInstance();
+        Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
 
         try {
             Class.forName(properties.getProperty("db.driver"));   //what is this?
@@ -29,7 +29,7 @@ public class ConnectionSingleton {
     }
 
     private static class SingletonHolder {
-        public static final ConnectionSingleton HOLDER_INSTANCE = new ConnectionSingleton();
+        static final ConnectionSingleton HOLDER_INSTANCE = new ConnectionSingleton();
     }
 
     public static ConnectionSingleton getInstance() {
