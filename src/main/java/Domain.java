@@ -1,12 +1,10 @@
 import entities.Role;
 import entities.Table;
-import org.apache.log4j.Logger;
 import service.DishService;
 import service.RoleService;
 import service.TableService;
 
 public class Domain {
-    private static final Logger log = Logger.getLogger(Domain.class);
     public static void main(String[] args) {
 
         RoleService roleService = new RoleService();

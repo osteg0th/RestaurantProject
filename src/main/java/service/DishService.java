@@ -1,9 +1,11 @@
 package service;
 
-import bI.ConnectionSingleton;
-import bI.PropertiesSingleton;
 import dao.DishDAO;
 import entities.Dish;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import util.ConnectionSingleton;
+import util.PropertiesSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class DishService implements DishDAO {
     private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
     private Connection connection = connectionSingleton.getConnection();
     private Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
+    private static Logger logger = LogManager.getLogger(DishService.class);
 
     @Override
     public void create(Dish dish) {
@@ -26,8 +29,9 @@ public class DishService implements DishDAO {
             preparedStatement.setDouble(5, dish.getWeight());
 
             preparedStatement.executeUpdate();
+            logger.info("Create success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Create fail" + e.getMessage());
         }
     }
 
@@ -44,9 +48,10 @@ public class DishService implements DishDAO {
                 dishQuery(dish, resultSet);
 
                 dishList.add(dish);
+                logger.info("Search success");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail" + e.getMessage());
         }
 
         return dishList;
@@ -76,8 +81,9 @@ public class DishService implements DishDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail" + e.getMessage());
         }
         return dish;
     }
@@ -91,8 +97,9 @@ public class DishService implements DishDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail" + e.getMessage());
         }
         return dish;
     }
@@ -106,8 +113,9 @@ public class DishService implements DishDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail" + e.getMessage());
         }
         return dish;
     }
@@ -121,8 +129,9 @@ public class DishService implements DishDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             dishQuery(dish, resultSet);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail" + e.getMessage());
         }
         return dish;
     }
@@ -138,8 +147,9 @@ public class DishService implements DishDAO {
             preparedStatement.setInt(5, dish.getId());
 
             preparedStatement.executeUpdate();
+            logger.info("Update success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Update fail" + e.getMessage());
         }
     }
 
@@ -149,8 +159,9 @@ public class DishService implements DishDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("Remove success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Remove fail" + e.getMessage());
         }
     }
 

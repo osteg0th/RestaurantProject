@@ -1,9 +1,11 @@
 package service;
 
-import bI.ConnectionSingleton;
-import bI.PropertiesSingleton;
 import dao.TableDAO;
 import entities.Table;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import util.ConnectionSingleton;
+import util.PropertiesSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class TableService implements TableDAO {
     private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
     private Connection connection = connectionSingleton.getConnection();
     private Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
-
+    private static Logger logger = LogManager.getLogger(TableService.class);
 
     @Override
     public void create(Table table) {
@@ -23,8 +25,9 @@ public class TableService implements TableDAO {
             preparedStatement.setInt(1, table.getId());
             preparedStatement.setInt(2, table.getStatus());
             preparedStatement.executeUpdate();
+            logger.info("Create success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Create fail with: " + e.getMessage());
         }
     }
 
@@ -42,8 +45,9 @@ public class TableService implements TableDAO {
 
                 tableList.add(table);
             }
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return tableList;
     }
@@ -59,8 +63,9 @@ public class TableService implements TableDAO {
             resultSet.first();
             table.setId(resultSet.getInt("ID"));
             table.setStatus(resultSet.getInt("STATUS"));
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return table;
     }
@@ -76,8 +81,9 @@ public class TableService implements TableDAO {
             resultSet.first();
             table.setId(resultSet.getInt("ID"));
             table.setStatus(resultSet.getInt("STATUS"));
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return table;
     }
@@ -89,8 +95,9 @@ public class TableService implements TableDAO {
             preparedStatement.setInt(1, table.getStatus());
             preparedStatement.setInt(2, table.getId());
             preparedStatement.executeUpdate();
+            logger.info("Update success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Update fail with: " + e.getMessage());
         }
     }
 
@@ -100,8 +107,9 @@ public class TableService implements TableDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("Remove success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Remove fail with: " + e.getMessage());
         }
     }
 }

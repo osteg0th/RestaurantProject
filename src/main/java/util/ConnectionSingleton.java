@@ -1,4 +1,4 @@
-package bI;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,6 @@ public class ConnectionSingleton {
     private Connection connection;
 
     private ConnectionSingleton() {
-//        PropertiesSingleton instance = PropertiesSingleton.getInstance();
         Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
 
         try {

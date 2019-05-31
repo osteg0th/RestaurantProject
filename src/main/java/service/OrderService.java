@@ -1,9 +1,11 @@
 package service;
 
-import bI.ConnectionSingleton;
-import bI.PropertiesSingleton;
 import dao.OrderDAO;
 import entities.Order;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import util.ConnectionSingleton;
+import util.PropertiesSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class OrderService implements OrderDAO {
     private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
     private Connection connection = connectionSingleton.getConnection();
     private Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
+    private static Logger logger = LogManager.getLogger(MenuService.class);
 
     @Override
     public void create(Order order) {
@@ -26,8 +29,9 @@ public class OrderService implements OrderDAO {
             preparedStatement.setInt(5, order.getUserId());
             preparedStatement.setInt(6, order.getTableId());
             preparedStatement.executeUpdate();
+            logger.info("Create success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Create fail with: " + e.getMessage());
         }
     }
 
@@ -44,8 +48,9 @@ public class OrderService implements OrderDAO {
 
                 orderList.add(order);
             }
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
 
         return orderList;
@@ -60,8 +65,9 @@ public class OrderService implements OrderDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             getOrder(resultSet, order);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -76,8 +82,9 @@ public class OrderService implements OrderDAO {
 
             getOrder(resultSet, order);
 
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -91,8 +98,9 @@ public class OrderService implements OrderDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             getOrder(resultSet, order);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -106,8 +114,9 @@ public class OrderService implements OrderDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             getOrder(resultSet, order);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -121,8 +130,9 @@ public class OrderService implements OrderDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             getOrder(resultSet, order);
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -137,8 +147,9 @@ public class OrderService implements OrderDAO {
 
             getOrder(resultSet, order);
 
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -153,8 +164,9 @@ public class OrderService implements OrderDAO {
 
             getOrder(resultSet, order);
 
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return order;
     }
@@ -181,8 +193,9 @@ public class OrderService implements OrderDAO {
             preparedStatement.setInt(5, order.getUserId());
             preparedStatement.setInt(6, order.getTableId());
             preparedStatement.setInt(7, order.getId());
+            logger.info("Update success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Update fail with: " + e.getMessage());
         }
     }
 
@@ -192,8 +205,9 @@ public class OrderService implements OrderDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("Remove success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Remove fail with: " + e.getMessage());
         }
     }
 }

@@ -1,9 +1,11 @@
 package service;
 
-import bI.ConnectionSingleton;
-import bI.PropertiesSingleton;
 import dao.RoleDAO;
 import entities.Role;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import util.ConnectionSingleton;
+import util.PropertiesSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ public class RoleService implements RoleDAO {
     private ConnectionSingleton connectionSingleton = ConnectionSingleton.getInstance();
     private Connection connection = connectionSingleton.getConnection();
     private Properties properties = PropertiesSingleton.PROPERTIES_SINGLETON.getProperties();
+    private static Logger logger = LogManager.getLogger(RoleService.class);
 
 
     @Override
@@ -22,8 +25,9 @@ public class RoleService implements RoleDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, role.getAccess());
             preparedStatement.executeUpdate();
+            logger.info("Create success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Create fail with: " + e.getMessage());
         }
     }
 
@@ -40,8 +44,9 @@ public class RoleService implements RoleDAO {
                 roleList.add(role);
 
             }
+            logger.info("Search success");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return roleList;
     }
@@ -57,9 +62,10 @@ public class RoleService implements RoleDAO {
             resultSet.first();
             role.setId(resultSet.getInt("id"));
             role.setAccess(resultSet.getString("ACCESS"));
-
+            logger.info("Search success");
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return role;
     }
@@ -76,8 +82,10 @@ public class RoleService implements RoleDAO {
             role.setId(resultSet.getInt("ID"));
             role.setAccess(resultSet.getString("ACCESS"));
 
+            logger.info("Search success");
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("Search fail with: " + e.getMessage());
         }
         return role;
     }
@@ -90,8 +98,10 @@ public class RoleService implements RoleDAO {
             preparedStatement.setInt(2, role.getId());
 
             preparedStatement.executeUpdate();
+            logger.info("Update success");
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("Update fail with: " + e.getMessage());
         }
     }
 
@@ -101,8 +111,10 @@ public class RoleService implements RoleDAO {
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
+            logger.info("Remove success");
         } catch (SQLException e) {
             e.printStackTrace();
+            logger.error("Remove fail with: " + e.getMessage());
         }
     }
 }
