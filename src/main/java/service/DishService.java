@@ -154,7 +154,7 @@ public class DishService implements DishDAO {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void delete(Integer id) {
         String query = properties.getProperty("dish.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);

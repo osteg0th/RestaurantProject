@@ -102,7 +102,7 @@ public class TableService implements TableDAO {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void delete(Integer id) {
         String query = properties.getProperty("table.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);

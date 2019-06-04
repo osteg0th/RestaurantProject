@@ -200,7 +200,7 @@ public class OrderService implements OrderDAO {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void delete(Integer id) {
         String query = properties.getProperty("order.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);

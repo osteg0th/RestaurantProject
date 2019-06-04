@@ -10,9 +10,10 @@ public interface RoleDAO {
     //read
     List<Role> getAll();
     Role getById(Integer id);
-    Role getByAccess(String access);
+
+    List<Role> getByAccess(String access);
     //update
     void update(Role role);
     //delete
-    void remove(Integer id);
+    void delete(Role role);
 }

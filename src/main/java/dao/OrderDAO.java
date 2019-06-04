@@ -19,6 +19,6 @@ public interface OrderDAO {
     //update
     void update(Order order);
     //delete
-    void remove(Integer id);
+    void delete(Integer id);
 
 }

@@ -71,23 +71,24 @@ public class RoleService implements RoleDAO {
     }
 
     @Override
-    public Role getByAccess(String access) {
+    public List<Role> getByAccess(String access) {
+        List<Role> roleList = new ArrayList<>();
         String query = properties.getProperty("role.getByAccess");
-        Role role = new Role();
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, access);
-
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.first();
-            role.setId(resultSet.getInt("ID"));
-            role.setAccess(resultSet.getString("ACCESS"));
-
+            while (resultSet.next()) {
+                Role role = new Role();
+                role.setId(resultSet.getInt("ID"));
+                role.setAccess(resultSet.getString("ACCESS"));
+                roleList.add(role);
+            }
             logger.info("Search success");
         } catch (SQLException e) {
             e.printStackTrace();
             logger.error("Search fail with: " + e.getMessage());
         }
-        return role;
+        return roleList;
     }
 
     @Override
@@ -106,10 +107,10 @@ public class RoleService implements RoleDAO {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void delete(Role role) {
         String query = properties.getProperty("role.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(1, role.getId());
             preparedStatement.executeUpdate();
             logger.info("Remove success");
         } catch (SQLException e) {

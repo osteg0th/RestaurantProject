@@ -18,6 +18,6 @@ public interface UserDAO {
     //update
     void update(User user);
     //delete
-    void remove(Integer id);
+    void delete(Integer id);
 
 }
