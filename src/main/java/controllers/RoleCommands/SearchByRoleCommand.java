@@ -1,8 +1,11 @@
 package controllers.RoleCommands;
 
 import bl.Command;
+import entities.Role;
 
-public class SearchByRoleCommand extends RoleCommand implements Command {
+import java.util.List;
+
+public class SearchByRoleCommand extends RoleCommand implements Command<List<Role>> {
     String access;
 
     public SearchByRoleCommand(String access) {
@@ -10,7 +13,7 @@ public class SearchByRoleCommand extends RoleCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        System.out.println(roleService.getByAccess(access));
+    public List<Role> execute() {
+        return roleService.getByAccess(access);
     }
 }

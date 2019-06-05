@@ -1,13 +1,16 @@
 package controllers.RoleCommands;
 
 import bl.Command;
+import entities.Role;
 
-public class ViewAllRole extends RoleCommand implements Command {
+import java.util.List;
+
+public class ViewAllRole extends RoleCommand implements Command<List<Role>> {
     public ViewAllRole() {
     }
 
     @Override
-    public void execute() {
-        System.out.println(roleService.getAll());   //TODO rewrite test output
+    public List<Role> execute() {
+        return roleService.getAll();
     }
 }

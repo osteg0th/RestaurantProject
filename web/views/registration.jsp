@@ -6,13 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Registration</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css"/>
 </head>
 <body>
+<header class="header">
+    <%--<jsp:include page="_menu.jsp"></jsp:include>    ne rabotaet--%>
+</header>
 <div class="wrapper">
+
     <form class="registration form" action="${pageContext.request.contextPath}/" method="post">
         <label for="email">Email: </label>
         <input type="text" name="email" id="email">
@@ -22,9 +27,9 @@
         <input type="text" name="name" id="name">
         <label for="surname">Surname</label>
         <input type="text" name="surname" id="surname">
-        <input type="submit" name="signin" value="Sign up!">
+        <input type="submit" name="signup" value="Sign up!">
     </form>
-    <a class="button" href="${pageContext.request.contextPath}/views/login.jsp">Sign in</a>
+    <a class="button" href="${pageContext.request.contextPath}/login">Sign in</a>
 </div>
 </body>
 </html>

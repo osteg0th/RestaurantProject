@@ -1,6 +1,7 @@
 package controllers;
 
 import bl.Command;
+import entities.User;
 
 public class UserController {
     Command create;
@@ -17,6 +18,10 @@ public class UserController {
         this.getAll = getAll;
     }
 
+    public UserController(Command getLogin) {
+        this.getLogin = getLogin;
+    }
+
     public void create() {
         create.execute();
     }
@@ -25,8 +30,8 @@ public class UserController {
         delete.execute();
     }
 
-    public void setGetLogin() {
-        getLogin.execute();
+    public User getLogin() {
+        return (User) getLogin.execute();
     }
 
     public void update() {

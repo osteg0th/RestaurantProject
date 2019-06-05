@@ -1,20 +1,25 @@
 body {
     display: flex;
+    flex-direction: column;
 }
 
+a {
+    margin: 2px;
+}
+
+.header {
+}
 .form {
     display: flex;
     flex-direction: column;
     margin: 0;
 }
-
 .wrapper {
     display: flex;
     flex-direction: column;
     border: 4px double black;
     margin: auto;
 }
-
 .button {
     -webkit-appearance: button;
     -moz-appearance: button;

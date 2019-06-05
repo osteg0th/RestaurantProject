@@ -22,8 +22,8 @@ public class UserService implements UserDAO {
     public void create(User user) {
         String query = properties.getProperty("user.create");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
             preparedStatement.setInt(3, user.getRole_id());
             preparedStatement.executeUpdate();
             logger.info("Create success");
@@ -135,10 +135,13 @@ public class UserService implements UserDAO {
 
             getUser(user, resultSet);
             logger.info("User exist");
+            return user;
         } catch (SQLException e) {
             logger.error("No such user found" + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
-        return user;
+//        return user;
     }
 
     @Override
@@ -174,6 +177,8 @@ public class UserService implements UserDAO {
         user.setId(resultSet.getInt("ID"));
         user.setName(resultSet.getString("NAME"));
         user.setSurname(resultSet.getString("SURNAME"));
+        user.setEmail(resultSet.getString("EMAIL"));
+        user.setPassword(resultSet.getString("PASSWORD"));
         user.setRole_id(resultSet.getInt("ROLE_ID"));       //duplicate?
     }
 }

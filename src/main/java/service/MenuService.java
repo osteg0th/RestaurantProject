@@ -90,7 +90,7 @@ public class MenuService implements MenuDAO {
     }
 
     @Override
-    public void remove(Integer id) {
+    public void delete(Integer id) {
         String query = properties.getProperty("menu.remove");
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, id);
